@@ -63,6 +63,7 @@ tests(GROUPS correctness
       convolution_multiple_kernels.cpp
       cross_compilation.cpp
       cuda_8_bit_dot_product.cpp
+      cuda_wmma.cpp
       custom_allocator.cpp
       custom_auto_scheduler.cpp
       custom_error_reporter.cpp
