@@ -1833,6 +1833,18 @@ Stage &Stage::gpu_tile(const VarOrRVar &x, const VarOrRVar &y, const VarOrRVar &
     return gpu_tile(x, y, z, x, y, z, tx, ty, tz, x_size, y_size, z_size, tail, device_api);
 }
 
+Stage &Stage::tensor_core(const Var &x, const Var &y, const RVar &k) {
+    set_dim_device_api(x, DeviceAPI::CUDA);
+    set_dim_device_api(y, DeviceAPI::CUDA);
+    set_dim_device_api(k, DeviceAPI::CUDA);
+
+    set_dim_type(x, ForType::TensorCore);
+    set_dim_type(y, ForType::TensorCore);
+    set_dim_type(k, ForType::TensorCore);
+
+    return *this;
+}
+
 Stage &Stage::hexagon(const VarOrRVar &x) {
     set_dim_device_api(x, DeviceAPI::Hexagon);
     return *this;
@@ -2517,6 +2529,11 @@ Func &Func::gpu_tile(const VarOrRVar &x, const VarOrRVar &y, const VarOrRVar &z,
     invalidate_cache();
     Stage(func, func.definition(), 0)
         .gpu_tile(x, y, z, tx, ty, tz, x_size, y_size, z_size, tail, device_api);
+    return *this;
+}
+
+Func &Func::tensor_core(const Var &x, const Var &y, const RVar &k) {
+    Stage(func, func.definition(), 0).tensor_core(x, y, k);
     return *this;
 }
 

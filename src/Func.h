@@ -437,6 +437,8 @@ public:
                     TailStrategy tail = TailStrategy::Auto,
                     DeviceAPI device_api = DeviceAPI::Default_GPU);
 
+    Stage &tensor_core(const Var &x, const Var &y, const RVar &k);
+
     Stage &allow_race_conditions();
     Stage &atomic(bool override_associativity_test = false);
 
@@ -1970,6 +1972,8 @@ public:
                    TailStrategy tail = TailStrategy::Auto,
                    DeviceAPI device_api = DeviceAPI::Default_GPU);
     // @}
+
+    Func &tensor_core(const Var &x, const Var &y, const RVar &k);
 
     /** Schedule for execution on Hexagon. When a loop is marked with
      * Hexagon, that loop is executed on a Hexagon DSP. */

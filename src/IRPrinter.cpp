@@ -279,6 +279,9 @@ ostream &operator<<(ostream &out, const ForType &type) {
     case ForType::GPULane:
         out << "gpu_lane";
         break;
+    case ForType::TensorCore:
+        out << "tensor_core";
+        break;
     }
     return out;
 }
