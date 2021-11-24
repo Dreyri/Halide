@@ -8,6 +8,7 @@
 #include "CodeGen_OpenGLCompute_Dev.h"
 #include "CodeGen_PTX_Dev.h"
 #include "ExprUsesVar.h"
+#include "ExtractTensorCoreOperations.h"
 #include "IRMutator.h"
 #include "IROperator.h"
 #include "IRPrinter.h"
@@ -283,7 +284,8 @@ public:
             // This needs to be done before the call to mutate(s) so the variables used within the inner loop
             // can be picked by the HostClosure visitor
             debug(1) << "Extracting CUDA Tensor Core Operations...\n";
-            result = ExtractTensorCoreOperations{}.mutate(s);
+            result = extract_tensor_core_operations(s);
+            // result = ExtractTensorCoreOperations{}.mutate(s);
             debug(2) << "After extracting CUDA Tensor Core Operations" << result << "\n";
         }
 
