@@ -84,7 +84,8 @@ bool is_unordered_parallel(ForType for_type) {
 bool is_parallel(ForType for_type) {
     return (is_unordered_parallel(for_type) ||
             for_type == ForType::Vectorized ||
-            for_type == ForType::GPULane);
+            for_type == ForType::GPULane ||
+            for_type == ForType::TensorCore);
 }
 
 }  // namespace Internal
