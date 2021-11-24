@@ -454,6 +454,7 @@ SOURCE_FILES = \
   EmulateFloat16Math.cpp \
   Error.cpp \
   Expr.cpp \
+  ExtractTensorCoreOperations.cpp \
   FastIntegerDivide.cpp \
   FindCalls.cpp \
   FindIntrinsics.cpp \
@@ -627,6 +628,7 @@ HEADER_FILES = \
   ExprUsesVar.h \
   Extern.h \
   ExternFuncArgument.h \
+  ExtractTensorCoreOperations.h \
   FastIntegerDivide.h \
   FindCalls.h \
   FindIntrinsics.h \
