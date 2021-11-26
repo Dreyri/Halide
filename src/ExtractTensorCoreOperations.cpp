@@ -73,6 +73,19 @@ int64_t get_const_extent(const For* op) {
     return op->extent.as<IntImm>()->value;
 }
 
+class ExtractStore : public IRVisitor {
+public:
+    const Store* op;
+
+    ExtractStore() = default;
+
+    using IRVisitor::visit;
+
+    void visit(const Store* op) override {
+        this->op = op;
+        return;
+    }
+};
 
 class ReplaceVars : public IRMutator {
     const std::vector<const LetStmt*>* lets;
