@@ -73,6 +73,39 @@ int64_t get_const_extent(const For* op) {
     return op->extent.as<IntImm>()->value;
 }
 
+
+class ReplaceVars : public IRMutator {
+    const std::vector<const LetStmt*>* lets;
+public:
+    ReplaceVars(const std::vector<const LetStmt*>& lets)
+        : lets(&lets)
+    {}
+
+    using IRMutator::visit;
+
+    const LetStmt* find_let(const std::string& name) const {
+        auto it = std::find_if(lets->rbegin(), lets->rend(), [&](const LetStmt* let) {
+            return let->name == name;
+        });
+
+        if (it == lets->rend()) {
+            return nullptr;
+        }
+
+        return *it;
+    }
+
+    Expr visit(const Variable* op) override {
+        const LetStmt* let = find_let(op->name);
+
+        if (!let) {
+            return IRMutator::visit(op);
+        }
+
+        return mutate(let->value);
+    }
+};
+
 class ExtractTensorCoreOperations : public IRMutator {
 
     std::vector<const LetStmt*> lets;
